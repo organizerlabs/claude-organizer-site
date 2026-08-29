@@ -3,44 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chat Folders, Search &amp; Export for Claude™ — Organize your chat history</title>
-<meta name="description" content="Chrome extension that adds folders, full-text search and Markdown/Obsidian export to your Claude chat history. Private by design. $29 once for Pro — no subscription.">
+<title>Organizer Labs — Chat Folders, Search &amp; Export for Claude™ and Gemini™</title>
+<meta name="description" content="Chrome extensions that add folders, full-text search and Markdown/PDF/Obsidian export to your Claude and Gemini chat history. Private by design. $29 once for Pro — no subscription.">
 <style>
   :root {
     --bg: #1f1e1d; --bg2: #2b2a28; --text: #eee;
-    --muted: #999; --accent: #d97757; --border: #3a3836;
+    --muted: #999; --claude: #d97757; --gemini: #5c9dff; --border: #3a3836;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg); color: var(--text);
     font: 16px/1.6 system-ui, -apple-system, sans-serif;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
-  header { padding: 56px 0 32px; text-align: center; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px; }
+  header { padding: 56px 0 24px; text-align: center; }
+  .logos { display: inline-flex; gap: 12px; margin-bottom: 20px; }
   .logo {
-    width: 72px; height: 72px; border-radius: 18px; background: var(--accent);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 36px; margin-bottom: 20px;
+    width: 64px; height: 64px; border-radius: 16px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 32px;
   }
+  .logo.claude { background: var(--claude); }
+  .logo.gemini { background: var(--gemini); }
   h1 { font-size: 30px; line-height: 1.25; margin-bottom: 12px; }
-  .sub { color: var(--muted); font-size: 18px; max-width: 560px; margin: 0 auto 24px; }
+  .sub { color: var(--muted); font-size: 18px; max-width: 620px; margin: 0 auto; }
+  .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; padding: 24px 0 8px; }
+  .product { background: var(--bg2); border-radius: 16px; padding: 24px; border-top: 4px solid; }
+  .product.claude { border-color: var(--claude); }
+  .product.gemini { border-color: var(--gemini); }
+  .product h2 { font-size: 20px; margin-bottom: 6px; }
+  .product p { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
   .cta {
-    display: inline-block; background: var(--accent); color: #fff;
-    padding: 12px 26px; border-radius: 10px; text-decoration: none; font-weight: 600;
+    display: inline-block; color: #fff; padding: 11px 22px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 15px;
   }
-  .cta.secondary { background: none; color: var(--accent); border: 1px solid var(--accent); margin-left: 8px; }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; padding: 32px 0; }
+  .product.claude .cta { background: var(--claude); }
+  .product.gemini .cta { background: var(--gemini); }
+  .cta.secondary { background: none !important; border: 1px solid var(--border); color: var(--muted); margin-left: 6px; }
+  .cta.soon { background: var(--bg) !important; color: var(--muted); border: 1px dashed var(--border); cursor: default; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; padding: 24px 0; }
   .card { background: var(--bg2); border-radius: 14px; padding: 18px; }
   .card .ico { font-size: 22px; margin-bottom: 8px; }
   .card h3 { font-size: 15px; margin-bottom: 6px; }
   .card p { color: var(--muted); font-size: 14px; }
   .privacy-note {
     border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px;
-    margin: 8px 0 32px; font-size: 15px; color: var(--muted);
+    margin: 8px 0 16px; font-size: 15px; color: var(--muted);
   }
   .privacy-note strong { color: var(--text); }
-  .pro { padding: 8px 0 40px; }
-  .pro h2 { font-size: 22px; margin-bottom: 14px; }
+  .pro { padding: 24px 0 40px; }
+  .pro h2 { font-size: 22px; margin-bottom: 6px; }
+  .pro .names { color: var(--muted); font-size: 15px; margin-bottom: 14px; }
   .pro table { width: 100%; border-collapse: collapse; font-size: 15px; }
   .pro td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
   .pro td:last-child { text-align: right; white-space: nowrap; color: var(--muted); }
@@ -48,49 +60,66 @@
     border-top: 1px solid var(--border); padding: 24px 0 48px;
     color: var(--muted); font-size: 13px; text-align: center;
   }
-  footer a { color: var(--accent); }
+  footer a { color: var(--text); }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">📁</div>
-    <h1>Chat Folders, Search &amp; Export<br>for Claude™</h1>
-    <p class="sub">Claude.ai still can't search inside your conversations — and can't export them. This Chrome extension fixes that: full-text search across every chat, folders &amp; pins, stats, and Markdown/Obsidian export.</p>
-    <a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/dnopfmakdomfdemhceekofglenkigadl">Add to Chrome — Free</a>
-    <a class="cta secondary" href="privacy.html">Privacy</a>
+    <div class="logos"><div class="logo claude">📁</div><div class="logo gemini">📁</div></div>
+    <h1>Chat Folders, Search &amp; Export<br>for Claude™ and Gemini™</h1>
+    <p class="sub">Your AI assistant keeps every conversation but can't search inside them — and can't export them. These Chrome extensions fix that: full-text search across every chat, folders &amp; pins, stats, and Markdown / PDF / Obsidian export.</p>
   </header>
+
+  <div class="products">
+    <div class="product claude">
+      <h2>For Claude™</h2>
+      <p>Works on claude.ai. Free on the Chrome Web Store, in production since August 2026.</p>
+      <a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/dnopfmakdomfdemhceekofglenkigadl">Add to Chrome — Free</a>
+      <a class="cta secondary" href="privacy.html">Privacy</a>
+    </div>
+    <div class="product gemini">
+      <h2>For Gemini™</h2>
+      <p>Works on gemini.google.com. Same features, same price — including images you upload or generate, saved right into your exports.</p>
+      <a class="cta soon" href="gemini/">Coming soon — in store review</a>
+      <a class="cta secondary" href="gemini/privacy.html">Privacy</a>
+    </div>
+  </div>
 
   <div class="features">
     <div class="card"><div class="ico">🔍</div><h3>Full-text search</h3><p>Search the content of every chat, not just titles. Click a result to jump straight to that exact spot in the conversation.</p></div>
     <div class="card"><div class="ico">📁</div><h3>Folders &amp; pins</h3><p>Group chats into folders, pin the important ones on top. Your organization lives in your browser.</p></div>
     <div class="card"><div class="ico">📝</div><h3>Markdown export</h3><p>One-click export of any conversation to clean Markdown. No paywall on basic export — ever.</p></div>
-    <div class="card"><div class="ico">📊</div><h3>Your Claude stats</h3><p>Conversations, messages, words, your busiest month and longest chat.</p></div>
+    <div class="card"><div class="ico">📊</div><h3>Your chat stats</h3><p>Conversations, messages, words and your busiest month — computed locally.</p></div>
   </div>
 
   <div class="privacy-note">
-    <strong>Private by design.</strong> Everything runs locally in your browser. Your conversations are never uploaded anywhere — the extension talks only to claude.ai, the site you are already on. No analytics, no tracking, no account.
+    <strong>Private by design.</strong> Everything runs locally in your browser. Your conversations are never uploaded anywhere — each extension talks only to the chat site you are already on. No analytics, no tracking, no account.
   </div>
 
   <div class="privacy-note">
-    <strong>🛡 Built to last.</strong> Many Claude extensions stopped working after claude.ai's big July 2026 update. This one didn't skip a beat — it reads your chats through Claude's own API instead of scraping the page, so site redesigns don't break your folders, search or exports.
+    <strong>🛡 Built to last.</strong> Many Claude extensions stopped working after claude.ai's big July 2026 update. Ours didn't skip a beat — both extensions read your chats through the same requests the web app itself uses instead of scraping the page, so site redesigns are far less likely to break your folders, search or exports.
   </div>
 
   <div class="pro">
-    <h2>Claude Organizer Pro — $29 once. No subscription.</h2>
+    <h2>Pro — $29 once. No subscription.</h2>
+    <p class="names">Claude Organizer Pro — $29 · Gemini Organizer Pro — $29. One license per extension.</p>
     <table>
-      <tr><td>Backup your entire chat history to a ZIP of Markdown files</td><td>Pro</td></tr>
-      <tr><td>Obsidian / Logseq-ready YAML frontmatter</td><td>Pro</td></tr>
-      <tr><td>Include Claude's thinking blocks in exports</td><td>Pro</td></tr>
+      <tr><td>⚡&nbsp;Smart folders — a folder with a search query that files matching chats automatically</td><td>Pro</td></tr>
+      <tr><td>⏰&nbsp;Scheduled auto-backup of your entire history to ZIP, daily or weekly</td><td>Pro</td></tr>
+      <tr><td>🖨&nbsp;PDF export, rendered 100% locally in your browser</td><td>Pro</td></tr>
+      <tr><td>Bulk export / backup your entire chat history to a ZIP of Markdown files</td><td>Pro</td></tr>
+      <tr><td>🖼&nbsp;Images &amp; attachments in exports — embedded in .md or as an assets/ folder in ZIP</td><td>Pro</td></tr>
+      <tr><td>Obsidian / Logseq-ready YAML frontmatter and thinking blocks in exports</td><td>Pro</td></tr>
       <tr><td>Unlimited folders</td><td>Pro</td></tr>
-      <tr><td>Search, jump-to-match, 3 folders, pins, stats, single-chat export</td><td>Free forever</td></tr>
+      <tr><td>Search, jump-to-match, 3 folders, pins, stats, single-chat Markdown export</td><td>Free forever</td></tr>
     </table>
-    <p style="margin-top:12px;color:var(--muted);font-size:14px">One payment, forever. No monthly fees, no auto-renewal, no account to create.</p>
+    <p style="margin-top:12px;color:var(--muted);font-size:14px">One payment, forever. No monthly fees, no auto-renewal, no account to create. 14-day money-back guarantee.</p>
   </div>
 
   <footer>
-    <p>This extension is an independent project and is not affiliated with, endorsed by, or sponsored by Anthropic, PBC. “Claude” is a trademark of Anthropic, PBC.</p>
-    <p style="margin-top:8px"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a> · <a href="refund.html">Refund Policy</a> · Contact: <a href="mailto:hello@organizerlabs.com">hello@organizerlabs.com</a></p>
+    <p>These extensions are independent projects and are not affiliated with, endorsed by, or sponsored by Anthropic, PBC or Google LLC. “Claude” is a trademark of Anthropic, PBC. “Gemini” is a trademark of Google LLC.</p>
+    <p style="margin-top:8px"><a href="privacy.html">Privacy (Claude)</a> · <a href="gemini/privacy.html">Privacy (Gemini)</a> · <a href="terms.html">Terms of Service</a> · <a href="refund.html">Refund Policy</a> · Contact: <a href="mailto:hello@organizerlabs.com">hello@organizerlabs.com</a></p>
   </footer>
 </div>
 </body>
