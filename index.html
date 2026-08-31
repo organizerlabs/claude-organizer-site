@@ -27,11 +27,11 @@
   h1 { font-size: 30px; line-height: 1.25; margin-bottom: 12px; }
   .sub { color: var(--muted); font-size: 18px; max-width: 620px; margin: 0 auto; }
   .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; padding: 24px 0 8px; }
-  .product { background: var(--bg2); border-radius: 16px; padding: 24px; border-top: 4px solid; }
+  .product { background: var(--bg2); border-radius: 16px; padding: 24px; border-top: 4px solid; display: flex; flex-direction: column; }
   .product.claude { border-color: var(--claude); }
   .product.gemini { border-color: var(--gemini); }
   .product h2 { font-size: 20px; margin-bottom: 6px; }
-  .product p { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+  .product p { color: var(--muted); font-size: 15px; margin-bottom: 16px; flex: 1; }
   .cta {
     display: inline-block; color: #fff; padding: 11px 22px; border-radius: 10px;
     text-decoration: none; font-weight: 600; font-size: 15px;
@@ -74,14 +74,14 @@
     <div class="product claude">
       <h2>For Claude™</h2>
       <p>Works on claude.ai. Free on the Chrome Web Store, in production since August 2026.</p>
-      <a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/dnopfmakdomfdemhceekofglenkigadl">Add to Chrome — Free</a>
-      <a class="cta secondary" href="privacy.html">Privacy</a>
+      <div><a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/dnopfmakdomfdemhceekofglenkigadl">Add to Chrome — Free</a>
+      <a class="cta secondary" href="privacy.html">Privacy</a></div>
     </div>
     <div class="product gemini">
       <h2>For Gemini™</h2>
       <p>Works on gemini.google.com. Same features, same price — including images you upload or generate, saved right into your exports.</p>
-      <a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/mlcnnegaggbpigkhidonchclkpldhlah">Add to Chrome — Free</a>
-      <a class="cta secondary" href="gemini/privacy.html">Privacy</a>
+      <div><a class="cta" href="https://chromewebstore.google.com/detail/chat-folders-search-expor/mlcnnegaggbpigkhidonchclkpldhlah">Add to Chrome — Free</a>
+      <a class="cta secondary" href="gemini/privacy.html">Privacy</a></div>
     </div>
   </div>
 
